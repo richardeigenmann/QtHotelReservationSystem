@@ -19,4 +19,5 @@ public:
     mongocxx::client client{uri};
     void addReservation(mongocxx::collection &collection, Reservation &r);
     bsoncxx::types::b_date read_date(const std::string &date, std::int32_t offset_from_utc);
+    void readAllReservations(mongocxx::collection &collection);
 };

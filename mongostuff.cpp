@@ -31,6 +31,12 @@ void MongoStuff::addReservation(mongocxx::collection & collection,  Reservation 
     qWarning() << "Insert done";
 }
 
+void MongoStuff::readAllReservations(mongocxx::collection & collection) {
+    qWarning() << "Reading all reervations";
+
+    //bsoncxx::stdx::optional<mongocxx::result::find> result = collection.find();
+    //qWarning() << "Insert done";
+}
 
 /**
 * @brief Convert a Y-m-d to a bsoncxx date
