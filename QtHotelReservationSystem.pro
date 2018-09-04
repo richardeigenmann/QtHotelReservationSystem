@@ -70,3 +70,6 @@ unix|win32: LIBS += -L$$PWD/../../../vcpkg/packages/libbson_x64-windows/lib/ -lb
 
 INCLUDEPATH += $$PWD/../../../vcpkg/packages/libbson_x64-windows/include
 DEPENDPATH += $$PWD/../../../vcpkg/packages/libbson_x64-windows/include
+
+DISTFILES += \
+    .gitignore

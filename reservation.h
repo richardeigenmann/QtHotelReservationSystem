@@ -24,30 +24,27 @@ public:
         : startDate(startDate),
         endDate(endDate),
         client(client),
-        numberOfGuests(numberOfGuests),
-        docReservation({} ) {}
+        numberOfGuests(numberOfGuests) {
+    }
 
     bsoncxx::types::b_date startDate;
     bsoncxx::types::b_date endDate;
     std::string client;
     int numberOfGuests;
 
-    bsoncxx::document::view toBson() {
-        qWarning() << "Creating the builder";
+    bsoncxx::document::view toBson() const {
+        //qWarning() << "Creating the builder";
         auto builder = bsoncxx::builder::stream::document{};
-        qWarning() << "streaming to builder";
-        docReservation = builder
+        //qWarning() << "streaming to builder";
+        bsoncxx::document::value docReservation = builder
             << "startDate" << startDate
             << "endDate" << endDate
             << "client" << client
             << "numberOfGuests" << numberOfGuests
             << bsoncxx::builder::stream::finalize;
-        qWarning() << "Creating the view";
+        //qWarning() << "Creating the view";
         bsoncxx::document::view view = docReservation.view();
-        qWarning() << "Retuning the view";
+        //qWarning() << "Retuning the view";
         return view;
     }
-
-private:
-    bsoncxx::document::value docReservation;
 };

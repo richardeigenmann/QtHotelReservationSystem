@@ -20,7 +20,6 @@ using bsoncxx::builder::basic::kvp;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    //mongoStuff(std::make_unique<MongoStuff>())
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -49,10 +48,10 @@ void MainWindow::on_insertButton_clicked()
         mongoStuff->addReservation(collection, secondBooking);
         mongoStuff->addReservation(collection, thirdBooking);
         mongoStuff->addReservation(collection, fourthBooking);
+        qWarning("Inserted 4 reservations");
     }  catch (const mongocxx::exception &ex) {
         qWarning() << "Hit an exception..." << ex.what();
     }
-    qWarning("Inserted 4 reservations");
 }
 
 
@@ -65,10 +64,14 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::on_readButton_clicked()
 {
-    qWarning() << "read button clicked";
-    ui->textEdit->moveCursor (QTextCursor::End);
-    QString hw = "Hello World";
-    ui->textEdit->insertPlainText (hw);
-    ui->textEdit->moveCursor (QTextCursor::End);
-
+    try {
+        mongocxx::collection collection = mongoStuff->db["reservations"];
+        qWarning("Got the collection");
+        auto stuff = mongoStuff->readAllReservations(collection);
+        for ( auto s : stuff ) {
+            ui->textEdit->append (QString::fromStdString(s));
+        }
+    }  catch (const mongocxx::exception &ex) {
+        qWarning() << "Hit an exception..." << ex.what();
+    }
 }

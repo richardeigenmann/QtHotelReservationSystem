@@ -5,7 +5,7 @@
 #include <memory>
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -15,7 +15,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    //MongoStuff mg{};
     std::unique_ptr<MongoStuff> mongoStuff;
 
 private slots:
@@ -27,6 +26,5 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    //MongoStuff mg;
 };
 

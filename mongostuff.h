@@ -5,7 +5,8 @@
 #include <mongocxx/database.hpp>
 #include <mongocxx/instance.hpp>
 #include <mongocxx/uri.hpp>
-
+#include <string>
+#include <vector>
 
 
 class MongoStuff
@@ -13,11 +14,13 @@ class MongoStuff
 public:
     MongoStuff();
     mongocxx::instance instance {}; // This should be done only once.
-    void connectToDb();
     mongocxx::database db;
     mongocxx::uri uri{"mongodb://localhost:27017"};
     mongocxx::client client{uri};
-    void addReservation(mongocxx::collection &collection, Reservation &r);
+
+    void connectToDb();
+    void addReservation(mongocxx::collection &collection, const Reservation &r);
+    std::vector<std::string> readAllReservations(mongocxx::collection &collection);
     bsoncxx::types::b_date read_date(const std::string &date, std::int32_t offset_from_utc);
-    void readAllReservations(mongocxx::collection &collection);
+
 };

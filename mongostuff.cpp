@@ -23,7 +23,7 @@ void MongoStuff::connectToDb() {
     }
 }
 
-void MongoStuff::addReservation(mongocxx::collection & collection,  Reservation & r) {
+void MongoStuff::addReservation(mongocxx::collection & collection,  const Reservation & r) {
     qWarning() << "Inserting a reservation";
     auto bson = r.toBson();
     qWarning() << "Got the bson object";
@@ -31,11 +31,17 @@ void MongoStuff::addReservation(mongocxx::collection & collection,  Reservation 
     qWarning() << "Insert done";
 }
 
-void MongoStuff::readAllReservations(mongocxx::collection & collection) {
-    qWarning() << "Reading all reervations";
+std::vector<std::string> MongoStuff::readAllReservations(mongocxx::collection & collection) {
+    qWarning() << "Reading all reservations";
 
     //bsoncxx::stdx::optional<mongocxx::result::find> result = collection.find();
-    //qWarning() << "Insert done";
+
+    std::vector<std::string> reservations {};
+    mongocxx::cursor cursor = collection.find({});
+    for(auto doc : cursor) {
+        reservations.push_back(bsoncxx::to_json(doc));
+    }
+    return reservations;
 }
 
 /**
