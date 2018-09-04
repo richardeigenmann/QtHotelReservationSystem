@@ -10,6 +10,10 @@
 #include <mongocxx/exception/exception.hpp>
 #include <QDebug>
 #include <QTextCursor>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
@@ -62,14 +66,37 @@ void MainWindow::on_connectButton_clicked()
     mongoStuff->connectToDb();
 }
 
+std::string return_current_time_and_date()
+{
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+    return ss.str();
+}
+std::string format_time_and_date(bsoncxx::types::b_date & dt)
+{
+    //auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(dt);
+
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+    return ss.str();
+}
+
 void MainWindow::on_readButton_clicked()
 {
     try {
         mongocxx::collection collection = mongoStuff->db["reservations"];
         qWarning("Got the collection");
-        auto stuff = mongoStuff->readAllReservations(collection);
-        for ( auto s : stuff ) {
-            ui->textEdit->append (QString::fromStdString(s));
+        auto reservations = mongoStuff->readAllReservations(collection);
+        for ( auto r : reservations ) {
+            ui->textEdit->append (QString::fromStdString(r.client));
+            ui->textEdit->append (QString::fromStdString(format_time_and_date(r.startDate)) );
+            ui->textEdit->append (QString::fromStdString(format_time_and_date(r.endDate)) );
+            ui->textEdit->append (QString::number(r.numberOfGuests) );
+
         }
     }  catch (const mongocxx::exception &ex) {
         qWarning() << "Hit an exception..." << ex.what();

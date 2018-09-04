@@ -20,7 +20,7 @@ public:
 
     void connectToDb();
     void addReservation(mongocxx::collection &collection, const Reservation &r);
-    std::vector<std::string> readAllReservations(mongocxx::collection &collection);
+    std::vector<Reservation> readAllReservations(mongocxx::collection &collection);
     bsoncxx::types::b_date read_date(const std::string &date, std::int32_t offset_from_utc);
 
 };

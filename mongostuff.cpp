@@ -4,6 +4,7 @@
 #include <mongocxx/exception/exception.hpp>
 #include <mongocxx/uri.hpp>
 #include <mongocxx/client.hpp>
+#include <bsoncxx/view_or_value.hpp>
 #include <sstream>
 #include <iomanip>
 
@@ -31,15 +32,22 @@ void MongoStuff::addReservation(mongocxx::collection & collection,  const Reserv
     qWarning() << "Insert done";
 }
 
-std::vector<std::string> MongoStuff::readAllReservations(mongocxx::collection & collection) {
+std::vector<Reservation> MongoStuff::readAllReservations(mongocxx::collection & collection) {
     qWarning() << "Reading all reservations";
 
     //bsoncxx::stdx::optional<mongocxx::result::find> result = collection.find();
 
-    std::vector<std::string> reservations {};
+    std::vector<Reservation> reservations {};
     mongocxx::cursor cursor = collection.find({});
     for(auto doc : cursor) {
-        reservations.push_back(bsoncxx::to_json(doc));
+        auto sd_view = doc["startDate"].get_date();
+        auto ed_view = doc["endDate"].get_date();
+        auto view = doc["client"].get_utf8().value;
+        auto guests_view = doc["numberOfGuests"].get_int32();
+        std::string name = view.to_string();
+        Reservation r {sd_view,ed_view,name,guests_view};
+        //qWarning() << QString::fromStdString(name);
+        reservations.push_back(r);
     }
     return reservations;
 }
