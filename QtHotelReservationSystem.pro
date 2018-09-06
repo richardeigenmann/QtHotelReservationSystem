@@ -72,11 +72,19 @@ INCLUDEPATH += $$VCPKG/packages/boost-smart-ptr_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-utility_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-vcpkg-helpers_x64-windows/include
 
-unix|win32: LIBS += -L$$VCPKG/vcpkg/packages/libbson_x64-windows/lib/ -lbson-1.0
+unix|win32: LIBS += -L$$VCPKG/packages/libbson_x64-windows/lib/ -lbson-1.0
 
 INCLUDEPATH += $$VCPKG/packages/libbson_x64-windows/include
-DEPENDPATH += $$VCPKG/vcpkg/packages/libbson_x64-windows/include
+DEPENDPATH += $$VCPKG/packages/libbson_x64-windows/include
 
 DISTFILES += \
     .gitignore \
     Readme.md
+
+
+
+
+
+
+
+
