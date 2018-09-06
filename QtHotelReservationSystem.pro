@@ -36,40 +36,47 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
+
+#VCPKG =$$PWD/../../../vcpkg
+VCPKG = C:/Users/Richard/Documents/vcpkg
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-unix|win32: LIBS += -L$$PWD/../../../vcpkg/packages/mongo-cxx-driver_x64-windows/lib/ -lmongocxx -lbsoncxx
+unix|win32: LIBS += -L$$VCPKG/packages/mongo-cxx-driver_x64-windows/lib/ -lmongocxx -lbsoncxx
 
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/mongo-cxx-driver_x64-windows/include
-DEPENDPATH += $$PWD/../../../vcpkg/packages/mongo-cxx-driver_x64-windows/include
 
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-utility_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-config_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-throw-exception_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-assert_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-optional_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-core_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-static-assert_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-type-traits_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-move_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-bind_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-compatibility_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-detail_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-integer_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-mpl_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-predef_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-preprocessor_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-smart-ptr_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-utility_x64-windows/include
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/boost-vcpkg-helpers_x64-windows/include
 
-unix|win32: LIBS += -L$$PWD/../../../vcpkg/packages/libbson_x64-windows/lib/ -lbson-1.0
+INCLUDEPATH += $$VCPKG/packages/mongo-cxx-driver_x64-windows/include
+DEPENDPATH += $$VCPKG/packages/mongo-cxx-driver_x64-windows/include
 
-INCLUDEPATH += $$PWD/../../../vcpkg/packages/libbson_x64-windows/include
-DEPENDPATH += $$PWD/../../../vcpkg/packages/libbson_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-utility_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-config_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-throw-exception_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-assert_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-optional_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-core_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-static-assert_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-type-traits_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-move_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-bind_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-compatibility_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-detail_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-integer_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-mpl_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-predef_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-preprocessor_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-smart-ptr_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-utility_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/boost-vcpkg-helpers_x64-windows/include
+
+unix|win32: LIBS += -L$$VCPKG/vcpkg/packages/libbson_x64-windows/lib/ -lbson-1.0
+
+INCLUDEPATH += $$VCPKG/packages/libbson_x64-windows/include
+DEPENDPATH += $$VCPKG/vcpkg/packages/libbson_x64-windows/include
 
 DISTFILES += \
-    .gitignore
+    .gitignore \
+    Readme.md
