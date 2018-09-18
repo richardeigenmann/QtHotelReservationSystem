@@ -23,10 +23,10 @@ You now need to add the shared .dll libraries with the special QT tool:
 and
 
 ```
-copy c:\Users\Richard\Documents\vcpkg\packages\mongo-cxx-driver_x64-windows\bin\mongocxx.dll .
-copy c:\Users\Richard\Documents\vcpkg\packages\mongo-cxx-driver_x64-windows\bin\bsoncxx.dll .
-copy c:\Users\Richard\Documents\vcpkg\packages\libbson_x64-windows\bin\libbson-1.0.dll .
-copy c:\Users\Richard\Documents\vcpkg\packages\mongo-c-driver_x64-windows\bin\libmongoc-1.0.dll .
+copy c:\Users\Richa\Documents\vcpkg\packages\mongo-cxx-driver_x64-windows\bin\mongocxx.dll .
+copy c:\Users\Richa\Documents\vcpkg\packages\mongo-cxx-driver_x64-windows\bin\bsoncxx.dll .
+copy c:\Users\Richa\Documents\vcpkg\packages\libbson_x64-windows\bin\libbson-1.0.dll .
+copy c:\Users\Richa\Documents\vcpkg\packages\mongo-c-driver_x64-windows\bin\libmongoc-1.0.dll .
 ```
 
 Good luck!

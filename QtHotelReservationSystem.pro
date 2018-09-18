@@ -23,34 +23,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     mongostuff.cpp
 
 HEADERS += \
     mongostuff.h \
     mainwindow.h \
     reservation.h
-#    $$PWD/../../../vcpkg/packages/boost-utility_x64-windows/include/boost/utility/string_ref.hpp
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui
 
 
-#VCPKG =$$PWD/../../../vcpkg
-VCPKG = C:/Users/Richard/Documents/vcpkg
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-unix|win32: LIBS += -L$$VCPKG/packages/mongo-cxx-driver_x64-windows/lib/ -lmongocxx -lbsoncxx
 
 
-
+win32 {
+#VCPKG =$$PWD/../../../vcpkg
+VCPKG = C:/Users/Richa/Documents/vcpkg
+LIBS += -L$$VCPKG/packages/mongo-cxx-driver_x64-windows/lib/
+LIBS += -L$$VCPKG/packages/libbson_x64-windows/lib/
+LIBS += -lmongocxx -lbsoncxx
+LIBS += -lbson-1.0
 INCLUDEPATH += $$VCPKG/packages/mongo-cxx-driver_x64-windows/include
 DEPENDPATH += $$VCPKG/packages/mongo-cxx-driver_x64-windows/include
+INCLUDEPATH += $$VCPKG/packages/libbson_x64-windows/include
+DEPENDPATH += $$VCPKG/packages/libbson_x64-windows/include
 
 INCLUDEPATH += $$VCPKG/packages/boost-utility_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-config_x64-windows/include
@@ -71,11 +75,17 @@ INCLUDEPATH += $$VCPKG/packages/boost-preprocessor_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-smart-ptr_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-utility_x64-windows/include
 INCLUDEPATH += $$VCPKG/packages/boost-vcpkg-helpers_x64-windows/include
+}
 
-unix|win32: LIBS += -L$$VCPKG/packages/libbson_x64-windows/lib/ -lbson-1.0
+unix {
+LIBS += -lmongocxx -lbsoncxx
+LIBS += -lbson-1.0
+LIBS += -L$$PWD/../../../../../usr/local/lib/ -lmongocxx
+LIBS += -L$$PWD/../../../../../usr/local/lib/ -lbsoncxx
+INCLUDEPATH += $$PWD/../../../../../usr/local/include/mongocxx/v_noabi/
+INCLUDEPATH += $$PWD/../../../../../usr/local/include/bsoncxx/v_noabi/
+}
 
-INCLUDEPATH += $$VCPKG/packages/libbson_x64-windows/include
-DEPENDPATH += $$VCPKG/packages/libbson_x64-windows/include
 
 DISTFILES += \
     .gitignore \
@@ -86,11 +96,5 @@ DISTFILES += \
 
 
 
-
-
-unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lmongocxx
-unix:!macx: LIBS += -L$$PWD/../../../../../usr/local/lib/ -lbsoncxx
-unix:!macx: INCLUDEPATH += $$PWD/../../../../../usr/local/include/mongocxx/v_noabi/
-unix:!macx: INCLUDEPATH += $$PWD/../../../../../usr/local/include/bsoncxx/v_noabi/
 
 

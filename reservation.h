@@ -7,7 +7,6 @@
 #include <bsoncxx/builder/basic/array.hpp>
 #include <QDebug>
 
-
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
 using bsoncxx::builder::stream::finalize;
