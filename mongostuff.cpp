@@ -28,8 +28,16 @@ void MongoStuff::addReservation(mongocxx::collection & collection,  const Reserv
     qWarning() << "Inserting a reservation";
     auto bson = r.toBson();
     qWarning() << "Got the bson object";
-    bsoncxx::stdx::optional<mongocxx::result::insert_one> result = collection.insert_one(bson);
-    qWarning() << "Insert done";
+    try {
+        //bsoncxx::builder::stream::document d{};
+        //d << "hello" << "world";
+        bsoncxx::stdx::optional<mongocxx::result::insert_one> result = collection.insert_one(bson);
+
+
+        qWarning() << "Insert done";
+    }  catch (const mongocxx::exception &ex) {
+        qWarning() << "Hit an exception: " << ex.what();
+    }
 }
 
 std::vector<Reservation> MongoStuff::readAllReservations(mongocxx::collection & collection) {

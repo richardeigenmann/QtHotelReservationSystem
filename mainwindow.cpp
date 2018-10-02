@@ -37,8 +37,7 @@ MainWindow::~MainWindow()
 
 
 
-void MainWindow::on_insertButton_clicked()
-{
+void MainWindow::on_insertButton_clicked() {
     qWarning("About to insert 4 reservations");
     try {
         Reservation firstBooking{ mongoStuff->read_date("2018-8-1",0), mongoStuff->read_date("2018-8-3",0), "George Clooney", 2 };
@@ -49,10 +48,10 @@ void MainWindow::on_insertButton_clicked()
         mongocxx::collection collection = mongoStuff->db["reservations"];
         qWarning("Got the collection");
         mongoStuff->addReservation(collection, firstBooking);
-        mongoStuff->addReservation(collection, secondBooking);
-        mongoStuff->addReservation(collection, thirdBooking);
-        mongoStuff->addReservation(collection, fourthBooking);
-        qWarning("Inserted 4 reservations");
+        //mongoStuff->addReservation(collection, secondBooking);
+        //mongoStuff->addReservation(collection, thirdBooking);
+        //mongoStuff->addReservation(collection, fourthBooking);
+        qWarning("Inserted 1 reservations");
     }  catch (const mongocxx::exception &ex) {
         qWarning() << "Hit an exception..." << ex.what();
     }

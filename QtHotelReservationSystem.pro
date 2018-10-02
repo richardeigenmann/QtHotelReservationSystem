@@ -78,9 +78,9 @@ INCLUDEPATH += $$VCPKG/packages/boost-vcpkg-helpers_x64-windows/include
 }
 
 unix {
-LIBS += -L/usr/local/lib -lmongocxx -lbsoncxx -lbson-1.0
-#LIBS += -L$$PWD/../../../../../usr/local/lib/ -lmongocxx
-#LIBS += -L$$PWD/../../../../../usr/local/lib/ -lbsoncxx
+LIBS += -L/usr/local/lib -L/usr/local/lib64
+LIBS += -lmongocxx -lmongoc-1.0
+LIBS += -lbsoncxx -lbson-1.0
 INCLUDEPATH += /usr/local/include/libmongoc-1.0/
 INCLUDEPATH += /usr/local/include/libbson-1.0/
 INCLUDEPATH += /usr/local/include/mongocxx/v_noabi/
@@ -91,11 +91,3 @@ INCLUDEPATH += /usr/local/include/bsoncxx/v_noabi/
 DISTFILES += \
     .gitignore \
     Readme.md
-
-
-
-
-
-
-
-
