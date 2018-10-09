@@ -28,10 +28,15 @@ void MongoStuff::addReservation(mongocxx::collection & collection,  const Reserv
     qWarning() << "Inserting a reservation";
     auto bson = r.toBson();
     qWarning() << "Got the bson object";
+    bsoncxx::document::view view = bson.view();
+    qWarning() << "The view has length() = underlying buffer of: " << view.length();
+    qWarning() << "Retuning the view";
+
     try {
+
         //bsoncxx::builder::stream::document d{};
         //d << "hello" << "world";
-        bsoncxx::stdx::optional<mongocxx::result::insert_one> result = collection.insert_one(bson);
+        bsoncxx::stdx::optional<mongocxx::result::insert_one> result = collection.insert_one(view);
 
 
         qWarning() << "Insert done";

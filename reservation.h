@@ -35,7 +35,7 @@ public:
     std::string client;
     int numberOfGuests;
 
-    bsoncxx::document::view toBson() const {
+    bsoncxx::document::value toBson() const {
         qWarning() << "Creating the builder";
         auto builder = bsoncxx::builder::stream::document{};
         qWarning() << "streaming to builder";
@@ -46,9 +46,7 @@ public:
             << "numberOfGuests" << numberOfGuests
             << bsoncxx::builder::stream::finalize;
         qWarning() << "Creating the view";
-        bsoncxx::document::view view = docReservation.view();
-        qWarning() << "The view has length() = underlying buffer of: " << view.length();
-        qWarning() << "Retuning the view";
-        return view;
+        return docReservation;
+        //return view;
     }
 };
