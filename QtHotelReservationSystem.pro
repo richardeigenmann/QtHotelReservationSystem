@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets sql
 
 TARGET = QtHotelReservationSystem
 TEMPLATE = app
@@ -25,12 +25,14 @@ CONFIG += c++14
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mongostuff.cpp
+    mongostuff.cpp \
+    tablemodel.cpp
 
 HEADERS += \
     mongostuff.h \
     mainwindow.h \
-    reservation.h
+    reservation.h \
+    tablemodel.h
 
 FORMS += \
     mainwindow.ui

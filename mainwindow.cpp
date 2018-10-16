@@ -15,6 +15,8 @@
 #include <iomanip>
 #include <sstream>
 
+
+
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
 using bsoncxx::builder::stream::finalize;
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mongoStuff = std::make_unique<MongoStuff>();
+
+    ui->tableView->setModel(&model);
 }
 
 MainWindow::~MainWindow()
