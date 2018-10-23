@@ -31,3 +31,20 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
     ss << "row: " << index.row()<< " col: " << index.column();
     return QVariant(QString::fromStdString( ss.str()));
 }
+
+QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const {
+    Q_UNUSED(section);
+    Q_UNUSED(orientation);
+    Q_UNUSED(role);
+    if ( role == Qt::DisplayRole ) {
+        if ( orientation == Qt::Horizontal ) {
+            switch (section) {
+            case 0 : return QVariant(QObject::tr("Name"));
+            case 1 : return QVariant(QObject::tr("Arrival Date"));
+            case 2 : return QVariant(QObject::tr("Departure Date"));
+            default:  return QVariant(QObject::tr("undef"));
+            }
+        }
+    }
+    return QVariant();
+}
