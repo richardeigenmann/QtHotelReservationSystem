@@ -23,10 +23,11 @@ int TableModel::columnCount(const QModelIndex &parent) const
     return 3;
 }
 
-QVariant TableModel::data(const QModelIndex &index, int role) const{
-    Q_UNUSED(index);
+
+
+QVariant TableModel::data(const QModelIndex &index, int role) const {
     Q_UNUSED(role);
     std::stringstream ss;
-    ss << "row: " << index.row()<< " col: " <<index.column();
+    ss << "row: " << index.row()<< " col: " << index.column();
     return QVariant(QString::fromStdString( ss.str()));
 }
