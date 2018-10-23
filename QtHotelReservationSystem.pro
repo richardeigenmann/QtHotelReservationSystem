@@ -26,7 +26,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mongostuff.cpp \
-    tablemodel.cpp
+    tablemodel.cpp \
+    reservation.cpp
 
 HEADERS += \
     mongostuff.h \

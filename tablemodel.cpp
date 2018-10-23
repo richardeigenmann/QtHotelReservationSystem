@@ -6,21 +6,18 @@
 TableModel::TableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    this->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-    this->setHeaderData(1, Qt::Horizontal, QObject::tr("First name"));
-    this->setHeaderData(2, Qt::Horizontal, QObject::tr("Last name"));
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 2;
+    return myReservations.size();
 }
 
 int TableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return 3;
+    return 4;
 }
 
 
@@ -29,7 +26,18 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
     Q_UNUSED(role);
     std::stringstream ss;
     ss << "row: " << index.row()<< " col: " << index.column();
-    return QVariant(QString::fromStdString( ss.str()));
+    if ( index.row() < 0 || static_cast<size_t> (index.row()) >= myReservations.size()){
+        return QObject::tr("Bad Index");
+    }
+    Reservation r = myReservations.at(index.row());
+    switch (index.column()) {
+    case 0 : return QString::fromStdString(r.client);
+    case 1 : return QString::fromStdString(Reservation::format_time_and_date(r.startDate));
+    case 2 : return QString::fromStdString(Reservation::format_time_and_date(r.endDate));
+    case 3 : return QString::number(r.numberOfGuests);
+    default:  return QVariant(QObject::tr("undef"));
+    }
+    //return QVariant(QString::fromStdString( ss.str()));
 }
 
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const {
@@ -42,9 +50,17 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
             case 0 : return QVariant(QObject::tr("Name"));
             case 1 : return QVariant(QObject::tr("Arrival Date"));
             case 2 : return QVariant(QObject::tr("Departure Date"));
+            case 3 : return QVariant(QObject::tr("Guests"));
             default:  return QVariant(QObject::tr("undef"));
             }
         }
     }
     return QVariant();
+}
+
+void TableModel::setReservations(const std::vector<Reservation> & reservations) {
+    emit layoutAboutToBeChanged();
+    myReservations = reservations;
+    //changePersistentIndex();
+    emit layoutChanged();
 }

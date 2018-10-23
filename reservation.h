@@ -8,8 +8,11 @@
 #include <bsoncxx/builder/stream/array.hpp>
 #include <bsoncxx/builder/stream/helpers.hpp>
 #include <bsoncxx/types.hpp>
-
 #include <QDebug>
+#include <chrono>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
@@ -49,4 +52,7 @@ public:
         return docReservation;
         //return view;
     }
+
+    static std::string format_time_and_date(bsoncxx::types::b_date & dt);
+
 };

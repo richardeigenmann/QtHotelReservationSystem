@@ -78,15 +78,7 @@ std::string return_current_time_and_date()
     ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
     return ss.str();
 }
-std::string format_time_and_date(bsoncxx::types::b_date & dt)
-{
-    //auto now = std::chrono::system_clock::now();
-    auto in_time_t = std::chrono::system_clock::to_time_t(dt);
 
-    std::stringstream ss;
-    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
-    return ss.str();
-}
 
 void MainWindow::on_readButton_clicked()
 {
@@ -94,10 +86,11 @@ void MainWindow::on_readButton_clicked()
         mongocxx::collection collection = mongoStuff->db["reservations"];
         qWarning("Got the collection");
         auto reservations = mongoStuff->readAllReservations(collection);
+        model.setReservations(reservations);
         for ( auto r : reservations ) {
             ui->textEdit->append (QString::fromStdString(r.client));
-            ui->textEdit->append (QString::fromStdString(format_time_and_date(r.startDate)) );
-            ui->textEdit->append (QString::fromStdString(format_time_and_date(r.endDate)) );
+            ui->textEdit->append (QString::fromStdString(Reservation::format_time_and_date(r.startDate)) );
+            ui->textEdit->append (QString::fromStdString(Reservation::format_time_and_date(r.endDate)) );
             ui->textEdit->append (QString::number(r.numberOfGuests) );
 
         }
