@@ -82,6 +82,7 @@ std::string return_current_time_and_date()
 
 void MainWindow::on_readButton_clicked()
 {
+    qWarning("Read Button Clicked");
     try {
         mongocxx::collection collection = mongoStuff->db["reservations"];
         qWarning("Got the collection");

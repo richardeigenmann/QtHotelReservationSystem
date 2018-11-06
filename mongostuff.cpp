@@ -1,5 +1,6 @@
 #include "mongostuff.h"
 #include <QDebug>
+#include <QString>
 #include "mongocxx/instance.hpp"
 #include <mongocxx/exception/exception.hpp>
 #include <mongocxx/uri.hpp>
@@ -51,13 +52,26 @@ std::vector<Reservation> MongoStuff::readAllReservations(mongocxx::collection & 
     //bsoncxx::stdx::optional<mongocxx::result::find> result = collection.find();
 
     std::vector<Reservation> reservations {};
+    qWarning("before find");
     mongocxx::cursor cursor = collection.find({});
-    for(auto doc : cursor) {
-        auto sd_view = doc["startDate"].get_date();
-        auto ed_view = doc["endDate"].get_date();
-        auto view = doc["client"].get_utf8().value;
-        auto guests_view = doc["numberOfGuests"].get_int32();
+    qWarning("after find");
+    for(auto c : cursor) {
+        qWarning("iterating cursor");
+        auto sd_view = c["startDate"].get_date();
+        qWarning("parsed date");
+        auto ed_view = c["endDate"].get_date();
+        qWarning("parsed date");
+        auto guests_view = c["numberOfGuests"].get_int32();
+        qWarning("parsed guests");
+
+        auto docClient = c["client"];
+        qWarning("Got client doc");
+        qWarning() << QString::number( static_cast<int>(docClient.type()));
+        auto view = docClient.get_utf8().value;
+        qWarning("got client view");
         std::string name = view.to_string();
+        qWarning("parsed name");
+
         Reservation r {sd_view,ed_view,name,guests_view};
         //qWarning() << QString::fromStdString(name);
         reservations.push_back(r);

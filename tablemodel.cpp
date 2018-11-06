@@ -8,6 +8,7 @@ TableModel::TableModel(QObject *parent)
 {
 }
 
+
 int TableModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);

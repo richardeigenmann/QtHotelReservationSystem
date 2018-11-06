@@ -13,6 +13,7 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
@@ -24,13 +25,13 @@ using bsoncxx::builder::basic::kvp;
 class Reservation {
 public:
     Reservation(const bsoncxx::types::b_date & startDate,
-        const bsoncxx::types::b_date & endDate,
-        const std::string & client,
-        const int & numberOfGuests)
+                const bsoncxx::types::b_date & endDate,
+                const std::string & client,
+                const int & numberOfGuests)
         : startDate(startDate),
-        endDate(endDate),
-        client(client),
-        numberOfGuests(numberOfGuests) {
+          endDate(endDate),
+          client(client),
+          numberOfGuests(numberOfGuests) {
     }
 
     bsoncxx::types::b_date startDate;
@@ -38,18 +39,29 @@ public:
     std::string client;
     int numberOfGuests;
 
+
+
     bsoncxx::document::value toBson() const {
         qWarning() << "Creating the builder";
         auto builder = bsoncxx::builder::stream::document{};
         qWarning() << "streaming to builder";
-        bsoncxx::document::value docReservation = builder
+        qWarning() << "Name of client: " << QString::fromStdString(client);
+        /*bsoncxx::document::value docReservation = builder
             << "startDate" << startDate
             << "endDate" << endDate
-            << "client" << client
             << "numberOfGuests" << numberOfGuests
             << bsoncxx::builder::stream::finalize;
-        qWarning() << "Creating the view";
-        return docReservation;
+        */
+        auto doc=bsoncxx::builder::basic::document{};
+        doc.append(
+                    kvp("startDate" , startDate),
+                    kvp("endDate", endDate),
+                    kvp("client", client),
+                    kvp("numberOfGuests", numberOfGuests)
+                    );
+        qWarning() << "Creating the view:" ;
+        //std::cout << bsoncxx::to_json(doc.extract().view());
+        return doc.extract();
         //return view;
     }
 
