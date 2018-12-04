@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "reservation.h"
+#include "reservationdialog.h"
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <mongocxx/collection.hpp>
@@ -44,7 +45,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_tableDoubleClick( const QModelIndex &index ) {
     qWarning("Got the row click");
-   // qWarning ( index );
+    qWarning() << index.row();
+    auto clickedReservation = model.data(index);
+    qWarning () << clickedReservation ;
+    qWarning() << model.getReservation(index).client.c_str();
+    //ReservationDialog rd{this};
+    //rd.show();
 }
 
 void MainWindow::on_insertButton_clicked() {

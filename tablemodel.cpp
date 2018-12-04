@@ -65,3 +65,7 @@ void TableModel::setReservations(const std::vector<Reservation> & reservations) 
     //changePersistentIndex();
     emit layoutChanged();
 }
+
+Reservation TableModel::getReservation(const QModelIndex &index, int role) const {
+    return myReservations.at(index.row());
+}

@@ -15,6 +15,7 @@ public:
     QVariant data(const QModelIndex &index, int role= Qt::DisplayRole) const ;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     void setReservations(const std::vector<Reservation> & reservations);
+    Reservation getReservation(const QModelIndex &index, int role= Qt::DisplayRole) const;
 private:
     std::vector<Reservation> myReservations{};
 };

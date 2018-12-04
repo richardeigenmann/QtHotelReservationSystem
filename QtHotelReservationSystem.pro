@@ -27,16 +27,19 @@ SOURCES += \
     mainwindow.cpp \
     mongostuff.cpp \
     tablemodel.cpp \
-    reservation.cpp
+    reservation.cpp \
+    reservationdialog.cpp
 
 HEADERS += \
     mongostuff.h \
     mainwindow.h \
     reservation.h \
-    tablemodel.h
+    tablemodel.h \
+    reservationdialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    reservationdialog.ui
 
 
 
