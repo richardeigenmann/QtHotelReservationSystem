@@ -28,6 +28,7 @@ void MongoStuff::connectToDb() {
 void MongoStuff::addReservation(mongocxx::collection & collection,  const Reservation & r) {
     qWarning() << "Inserting a reservation";
     auto bson = r.toBson();
+
     qWarning() << "Got the bson object";
     bsoncxx::document::view view = bson.view();
     qWarning() << "The view has length() = underlying buffer of: " << view.length();

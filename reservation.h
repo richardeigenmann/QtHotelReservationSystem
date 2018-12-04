@@ -39,30 +39,18 @@ public:
     std::string client;
     int numberOfGuests;
 
-
-
     bsoncxx::document::value toBson() const {
-        qWarning() << "Creating the builder";
-        auto builder = bsoncxx::builder::stream::document{};
-        qWarning() << "streaming to builder";
-        qWarning() << "Name of client: " << QString::fromStdString(client);
-        /*bsoncxx::document::value docReservation = builder
-            << "startDate" << startDate
-            << "endDate" << endDate
-            << "numberOfGuests" << numberOfGuests
-            << bsoncxx::builder::stream::finalize;
-        */
         auto doc=bsoncxx::builder::basic::document{};
+        // Note: the client is a std::string but the driver expects
+        // c-style strings, particularly under Windows! It doesn't
+        // convert automatically but silently drops the string! Beware!
         doc.append(
                     kvp("startDate" , startDate),
                     kvp("endDate", endDate),
-                    kvp("client", client),
+                    kvp("client", client.c_str()),
                     kvp("numberOfGuests", numberOfGuests)
                     );
-        qWarning() << "Creating the view:" ;
-        //std::cout << bsoncxx::to_json(doc.extract().view());
         return doc.extract();
-        //return view;
     }
 
     static std::string format_time_and_date(bsoncxx::types::b_date & dt);
