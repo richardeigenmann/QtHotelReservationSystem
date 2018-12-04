@@ -27,6 +27,8 @@ private slots:
 
     void on_readButton_clicked();
 
+    void on_tableDoubleClick( const QModelIndex &index );
+
 private:
     Ui::MainWindow *ui;
 };

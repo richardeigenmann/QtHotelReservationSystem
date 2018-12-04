@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mongoStuff = std::make_unique<MongoStuff>();
 
     ui->tableView->setModel(&model);
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    connect(ui->tableView, &QAbstractItemView::doubleClicked, this, &MainWindow::on_tableDoubleClick);
 }
 
 MainWindow::~MainWindow()
@@ -39,7 +42,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+void MainWindow::on_tableDoubleClick( const QModelIndex &index ) {
+    qWarning("Got the row click");
+   // qWarning ( index );
+}
 
 void MainWindow::on_insertButton_clicked() {
     qWarning("About to insert 4 reservations");
