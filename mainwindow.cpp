@@ -49,8 +49,8 @@ void MainWindow::on_tableDoubleClick( const QModelIndex &index ) {
     auto clickedReservation = model.data(index);
     qWarning () << clickedReservation ;
     qWarning() << model.getReservation(index).client.c_str();
-    //ReservationDialog rd{this};
-    //rd.show();
+    ReservationDialog *rd = new ReservationDialog(this, index.row(), &model);
+    rd->show();
 }
 
 void MainWindow::on_insertButton_clicked() {

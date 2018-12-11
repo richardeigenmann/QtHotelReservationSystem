@@ -41,6 +41,12 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
     //return QVariant(QString::fromStdString( ss.str()));
 }
 
+
+Reservation TableModel::getRow(const size_t row) {
+    return myReservations.at(row);
+}
+
+
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const {
     Q_UNUSED(section);
     Q_UNUSED(orientation);
